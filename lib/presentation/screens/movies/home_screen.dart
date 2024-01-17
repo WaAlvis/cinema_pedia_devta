@@ -1,4 +1,7 @@
+import 'package:cinema_pedia_devta/domain/entities/movie.dart';
 import 'package:cinema_pedia_devta/presentation/providers/movies/movies_providers.dart';
+import 'package:cinema_pedia_devta/presentation/providers/movies/movies_slideshow_provider.dart';
+import 'package:cinema_pedia_devta/presentation/widgets/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -31,16 +34,16 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   @override
   Widget build(BuildContext context) {
     // ^ Aqui vemos el estado del provider
-    final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
+    final List<Movie> nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
+    final List<Movie> slideShowMovies = ref.watch(moviesSlideshowProvider);
 
-    return ListView.builder(
-      itemCount: nowPlayingMovies.length,
-      itemBuilder: (context, index) {
-        final movie = nowPlayingMovies[index];
-        return ListTile(
-          title: Text(movie.title),
-        );
-      },
+    return Column(
+      children: [
+        const CustomAppbar(),
+        MovieSlideShow(
+          movies: slideShowMovies,
+        )
+      ],
     );
   }
 }
