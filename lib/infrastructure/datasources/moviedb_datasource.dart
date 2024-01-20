@@ -2,6 +2,7 @@ import 'package:cinema_pedia_devta/config/constants/environment.dart';
 import 'package:cinema_pedia_devta/domain/datasources/movies_datasource.dart';
 import 'package:cinema_pedia_devta/domain/entities/movie.dart';
 import 'package:cinema_pedia_devta/infrastructure/mappers/movie_mapper.dart';
+import 'package:cinema_pedia_devta/infrastructure/models/moviedb/movie_details.dart';
 import 'package:dio/dio.dart';
 
 import '../models/moviedb/moviedb_response.dart';
@@ -56,4 +57,18 @@ class MoviedbDatasource extends MoviesDatasource {
 
     return _jsonToMovies(response.data);
   }
+  
+  @override
+  Future<Movie> getMovieById(String id) async {
+    final response = await dio.get('/movie/$id');
+    if ( response.statusCode != 200 ) throw Exception('Movie with id: $id not found');
+
+    final movieDetails = MovieDetails.fromJson(response.data);
+    final Movie movie = MovieMapper.movieDetailsToEntity(movieDetails);
+
+    return movie;
+    
+  }
+  
+  
 }
