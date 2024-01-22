@@ -1,0 +1,8 @@
+import 'package:cinema_pedia_devta/domain/entities/actor.dart';
+
+
+abstract class ActorsRepository {
+
+  Future<List<Actor>> getActorsByMovie( String movieId );
+
+}
