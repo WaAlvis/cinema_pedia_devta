@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cinema_pedia_devta/domain/entities/movie.dart';
 import 'package:cinema_pedia_devta/presentation/providers/actors/actors_by_movie_provider.dart';
 import 'package:cinema_pedia_devta/presentation/providers/movies/movie_info_provider.dart';
@@ -195,13 +196,16 @@ class _CustomSliverAppbar extends StatelessWidget {
       foregroundColor: Colors.white,
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        title: Text(movie.title),
+        // title: Text(movie.title),
         background: Stack(
           children: [
             SizedBox.expand(
               child: Image.network(
                 movie.posterPath,
                 fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  return FadeIn(child: child);
+                },
               ),
             ),
             const SizedBox.expand(
