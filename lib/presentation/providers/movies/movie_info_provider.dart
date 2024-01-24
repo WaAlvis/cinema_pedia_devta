@@ -1,5 +1,5 @@
 import 'package:cinema_pedia_devta/domain/entities/movie.dart';
-import 'package:cinema_pedia_devta/presentation/providers/movies/movies_repository_provider.dart';
+import 'package:cinema_pedia_devta/presentation/providers/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final movieInfoProvider = StateNotifierProvider<MovieMapNotifier, Map<String, Movie>>((ref) {

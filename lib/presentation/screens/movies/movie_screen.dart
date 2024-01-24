@@ -1,7 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cinema_pedia_devta/domain/entities/movie.dart';
-import 'package:cinema_pedia_devta/presentation/providers/actors/actors_by_movie_provider.dart';
-import 'package:cinema_pedia_devta/presentation/providers/movies/movie_info_provider.dart';
+import 'package:cinema_pedia_devta/presentation/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
