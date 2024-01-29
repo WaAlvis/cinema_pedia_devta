@@ -2,39 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomBottomNavigation extends StatelessWidget {
-  const CustomBottomNavigation({super.key});
+  const CustomBottomNavigation({super.key, required this.navigationShell});
+  final StatefulNavigationShell navigationShell;
 
   @override
   Widget build(BuildContext context) {
-    
-    int getCurrentIndex(context) {
-      final String location = GoRouterState.of(context).matchedLocation;
-
-      final locationMap = {
-        '/': 0,
-        '/categories': 1,
-        '/favorites': 2,
-      };
-      return locationMap[location] ?? 0;
-    }
-
-    void onItemTapped(BuildContext context, int index) {
-      final Map<int, String> routeMap = {
-        0: '/',
-        1: '/',
-        2: '/favorites',
-      };
-
-      final route = routeMap[index];
-      if (route != null) {
-        context.go(route);
-      }
-    }
-
     return BottomNavigationBar(
       elevation: 0,
-      currentIndex: getCurrentIndex(context),
-      onTap: (value) => onItemTapped(context, value),
+      currentIndex: navigationShell.currentIndex,
+      onTap: (int index) => _onTap(context, index),
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home_max), label: 'Inicio'),
         BottomNavigationBarItem(
@@ -42,6 +18,13 @@ class CustomBottomNavigation extends StatelessWidget {
         BottomNavigationBarItem(
             icon: Icon(Icons.favorite_outline), label: 'Favoritos'),
       ],
+    );
+  }
+
+  void _onTap(BuildContext context, int index) {
+    navigationShell.goBranch(
+      index,
+      initialLocation: index == navigationShell.currentIndex,
     );
   }
 }
