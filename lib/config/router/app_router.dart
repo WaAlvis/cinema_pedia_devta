@@ -3,7 +3,12 @@ import 'package:cinema_pedia_devta/presentation/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+final GlobalKey<NavigatorState> _rootNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'root');
+
+
 final appRouter = GoRouter(
+  navigatorKey: _rootNavigatorKey,
   initialLocation: '/',
   routes: [
     StatefulShellRoute.indexedStack(
@@ -21,6 +26,7 @@ final appRouter = GoRouter(
                   const HomeView(),
               routes: <RouteBase>[
                 GoRoute(
+                    parentNavigatorKey: _rootNavigatorKey,
                     path: 'movie/:id',
                     builder: (context, state) {
                       final String movieId =
